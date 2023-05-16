@@ -85,8 +85,7 @@ namespace OOPsReview
                 {
                     throw new ArgumentException($"Supervisory Level is invalid: {value}");
                 }
-                _Level = value;
-
+                _Level = value;     // assigns the current value to the private data member
             }
         }
 
@@ -94,14 +93,15 @@ namespace OOPsReview
 
         public double Years
         {
-            get { return _Years}
-            set
+            get { return _Years;  }     // used on the right side of an assignment statement or in an expression
+            set                         // used on the left side of an assignment statement 
             {
-                if (value < 0)
+                //if (value < 0)        // using a utility's generic method to do this test
+                if (!Utilities.IsZeroOrPositive(value))
                 {
                     throw new ArgumentOutOfRangeException("value");
                 }    
-                _Years = value;
+                _Years = value;         // assigns the current value to the private data member
             }
 
         }
