@@ -11,7 +11,7 @@ namespace OOPsReview
 
     public static class Utilities
         // this is a shared static class
-        // Static classes are NOT instatiated by the outside user (developer/code)
+        // Static classes are NOT instantiated by the outside user (developer/code)
         // Static classes items are referenced using: classname.xxxx
         // Methods within this class have the keyword static in their signature
         // Static classes are sahred between all outside users at the same time 
@@ -21,10 +21,8 @@ namespace OOPsReview
         // sample of a generic method: numeric is a zero or positive value
         public static bool IsZeroOrPositive(double value)
         {
-            // code goes here
             // don't put breaks in methods, loops
-            // a structured method (applies to loops, etc.) will have a single entry point
-            // and a single exit point
+            // a structured method (applies to loops, etc.) will have a single entry point and a single exit point
 
             // IMPORTANT!!
             // AVOID where possible multiple returns from a method
