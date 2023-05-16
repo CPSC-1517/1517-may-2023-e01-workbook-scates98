@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OOPsReview
 {
+
+    // ** UTILITIES CLASS ** //
+
     public static class Utilities
         // this is a shared static class
         // Static classes are NOT instatiated by the outside user (developer/code)

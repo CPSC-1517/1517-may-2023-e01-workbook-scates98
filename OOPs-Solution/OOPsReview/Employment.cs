@@ -119,5 +119,71 @@ namespace OOPsReview
 
         public DateTime StartDate { get; private set; }
 
+
+
+        // ** CONSTRUCTORS ** //
+        //
+        // Purpose of a constructor is to create an instance of your class in a known state
+        // Class dfinitions do NOT need a constructor
+        // If a class definition does NOT have a constructor, then the system will create
+        //  the instance and assign the system default value to each data member and/or auto-implemented property
+        // If you have no constructor, the common phrase is "using a system constructor"
+
+        // ** IMPORTANT ** IF YOU CODE A CONSTRUCTOR IN YOUR CLASS, YOU ARE RESPONSIBLE FOR CODING ALL CONSTRUCTORS FOR THE CLASS!!
+
+        
+        // Types of constructors
+
+        // 1. "Default" constructor
+        //  Applies your own literal values for your data members and/or auto-implemented properties
+        //  that differ from the system default values
+        //  Why? You may have data that is validated and using the system default values which would cause and exception
+
+        public Employment()
+        {
+            // This constructor will be used on creting a instance using:
+            //      Employment myInstance = new Employment();
+            // A practice used is to avoid referencing the data members directly especially if the property contains validation
+            Title = "Unknown";
+            Level = SupervisoryLevel.TeamMember;
+            StartDate = DateTime.Today;
+            // optionally, you could set years to zero, but that is the system default value for a numeric
+            // therefore, you don't need to assigna a value unless you wanted to
+        }
+
+        // 2. Greedy constructor
+        // A Greedy constructor is one that accepts a parameter list of values to assign
+        // to your instance data on the creation of the instance
+        // generally, your greedy constructor contains a parameter on the signature for each
+        // data member in your class definition
+
+        // all default parameters must appear AFTER non-default parameter in your parameter list
+        // in this example, we will use Years as an optional parameter
+        public Employment(string title, SupervisoryLevel level,
+            DateTime startdate, double years = 0.0)
+        {
+            Title = title;
+            Level = level;
+            Years = years;
+            // this example is demonstrating where you can place validation for 
+            // properties that are auto-implemented
+
+            // Put validation right in the property
+            // validate start date must not exist in the future
+            // validation can be done anywhere in your class
+            //  since the property is auto-implemented AND has a private set
+            //  validation can be done in the constructor or a method that alters the property value
+            // IF the validation is done in the property, IT WOULD NOT be an auto-implemented property
+            //  but a fully-implemented property
+            // .Today has a time of: 00:00:000 AM
+            // .Now has a specific time of day at execution (example: 18:47:256 PM)
+            //  by using the .Today.AddDays(1), you cover all times on a specific date
+            if (startdate >= DateTime.Today.AddDays(1))
+            {
+                throw new ArgumentException($"The start date is in the future");
+            }
+            StartDate = startdate;
+        }
+            
     }
 }
