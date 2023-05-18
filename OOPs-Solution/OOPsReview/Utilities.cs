@@ -18,7 +18,7 @@ namespace OOPsReview
         // DO NOT STORE ANYTHING IN A STATIC CLASS because you can't be certain data will be there when you use the class again
         // Consider placing GENERIC re-usable methods with a static class
     {
-        // sample of a generic method: numeric is a zero or positive value
+        // sample of a GENERIC METHOD: numeric is a zero or positive value
         public static bool IsZeroOrPositive(double value)
         {
             // don't put breaks in methods, loops

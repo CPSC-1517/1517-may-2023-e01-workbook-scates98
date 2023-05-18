@@ -44,7 +44,7 @@ namespace OOPsReview
         //          public: accessible by the outside users of the class
         //          privte: accessible ONLY within the class
 
-        // ** Property: Title
+        // ** PROPERTY: Title
         // validation: there must be a character string (not empty/null)
         public string Title
         {
@@ -64,7 +64,10 @@ namespace OOPsReview
             }
         }
 
-        // fully implemented property
+        // ** FULLY IMPLEMENTED PROPERTY ** //
+        //
+        // DO VALIDATION HERE!!
+
         public SupervisoryLevel Level
 
         {
@@ -109,15 +112,17 @@ namespace OOPsReview
 
         // ** AUTO-IMPLEMENTED PROPERTY ** //
 
+        public DateTime StartDate { get; private set; }
+
         // There is no validation within the property
         // There is no private data member for this property
         // The system will generate an internal storage area for the data and handle the setting & getting from that storage area
-        
+
         // The private set means the property will only be able to be set via a constructor or method
         // Auto-implemented properties can have either a public or private set
         // Using a public or private set is a design decision
 
-        public DateTime StartDate { get; private set; }
+
 
 
 
@@ -131,8 +136,8 @@ namespace OOPsReview
 
         // ** IMPORTANT ** IF YOU CODE A CONSTRUCTOR IN YOUR CLASS, YOU ARE RESPONSIBLE FOR CODING ALL CONSTRUCTORS FOR THE CLASS!!
 
-        
-        // Types of constructors
+
+        // Types of CONSTRUCTORS
 
         // 1. "Default" constructor
         //  Applies your own literal values for your data members and/or auto-implemented properties
@@ -180,9 +185,62 @@ namespace OOPsReview
             //  by using the .Today.AddDays(1), you cover all times on a specific date
             if (startdate >= DateTime.Today.AddDays(1))
             {
-                throw new ArgumentException($"The start date is in the future");
+                throw new ArgumentException($"The start date {startdate} is in the future");
             }
             StartDate = startdate;
+        }
+
+        // ** METHODS ** //
+        // Behaviours (a.k.a: Methods) 
+        // A method consists of a header (accesslevel return data type (rdt) methodname (optional [list of parameters])
+        //      followed by a coding block  { . . . . . . . . . }
+
+        public void SetEmploymentResponsibilityLevel (SupervisoryLevel level)
+        {
+            Level = level;
+            // property has a PRIVATE SET, therefore the only ways to assign a value to the Property is either:
+            //  a) via the constructor at creation time
+            //  b) via a PUBLIC METHOD within the class
+            //
+            // What about validating the value?
+            // Validation can be done in multiple places
+            //  a) Can be validated in the method
+            //  b) Can be validated in the propterty if property fully implemented
+            // 
+        }
+
+
+        public void CorrectStartDate(DateTime startdate)
+        {
+            // The StartDate Property is an Auto-Implemented Property
+            // The StartDate Property has NO validation code
+            // You need to do any validation on the incoming value 
+            //  wherever you plan to alter the existing value in the class
+
+            if (startdate >= DateTime.Today.AddDays(1))
+            {
+                throw new ArgumentException($"The start date {startdate} is in the future");
+            }
+            StartDate = startdate;
+
+        }
+
+
+        public void UpdateCurrentEmploymentYearsExperience()
+        {
+            TimeSpan span = DateTime.Now - StartDate;
+            Years = Math.Round((span.Days / 365.25), 1);
+        }
+
+
+        public override string ToString()
+            // override forces system to use the string in this method
+        {
+            return $"{Title},{Level},{StartDate.ToString("MMM, dd, yyyy")}";
+            // returns the Property 'Title' 
+            // DateTime is an object, thus it as a ToString built-in. Using overloading we can format the DateTime string
+            // this creates a physical instance of the property
+
         }
             
     }
