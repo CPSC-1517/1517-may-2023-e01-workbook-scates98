@@ -44,6 +44,7 @@ namespace OOPsReview
         //          public: accessible by the outside users of the class
         //          privte: accessible ONLY within the class
 
+
         // ** PROPERTY: Title
         // validation: there must be a character string (not empty/null)
         public string Title
@@ -102,7 +103,7 @@ namespace OOPsReview
                 //if (value < 0)        // using a utility's generic method to do this test
                 if (!Utilities.IsZeroOrPositive(value))
                 {
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(value.ToString());
                 }    
                 _Years = value;         // assigns the current value to the private data member
             }
@@ -121,7 +122,6 @@ namespace OOPsReview
         // The private set means the property will only be able to be set via a constructor or method
         // Auto-implemented properties can have either a public or private set
         // Using a public or private set is a design decision
-
 
 
 
@@ -188,6 +188,16 @@ namespace OOPsReview
                 throw new ArgumentException($"The start date {startdate} is in the future");
             }
             StartDate = startdate;
+            if (years > 0.0)
+            {
+                Years = (double)years;
+            }
+            else
+            {
+                TimeSpan span = DateTime.Now - StartDate;
+                Years = Math.Round((span.Days / 365.25), 1);
+            }
+            
         }
 
         // ** METHODS ** //
@@ -195,7 +205,7 @@ namespace OOPsReview
         // A method consists of a header (accesslevel return data type (rdt) methodname (optional [list of parameters])
         //      followed by a coding block  { . . . . . . . . . }
 
-        public void SetEmploymentResponsibilityLevel (SupervisoryLevel level)
+        public void SetEmploymentResponsibilityLevel(SupervisoryLevel level)
         {
             Level = level;
             // property has a PRIVATE SET, therefore the only ways to assign a value to the Property is either:
@@ -226,21 +236,21 @@ namespace OOPsReview
         }
 
 
-        public void UpdateCurrentEmploymentYearsExperience()
+        public double UpdateCurrentEmploymentYearsExperience()
         {
             TimeSpan span = DateTime.Now - StartDate;
             Years = Math.Round((span.Days / 365.25), 1);
+            return Years;
         }
 
 
         public override string ToString()
             // override forces system to use the string in this method
         {
-            return $"{Title},{Level},{StartDate.ToString("MMM, dd, yyyy")}";
+            return $"{Title},{Level},{StartDate.ToString("MMM dd, yyyy")},{Years}";
             // returns the Property 'Title' 
             // DateTime is an object, thus it as a ToString built-in. Using overloading we can format the DateTime string
             // this creates a physical instance of the property
-
         }
             
     }
