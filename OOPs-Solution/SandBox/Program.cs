@@ -36,7 +36,7 @@ if (myHome.Province.ToLower() == "bc")
 {
     flag = true;
 }
-if (myHome.Province.ToLower().== "sk")
+if (myHome.Province.ToLower() == "sk")
 {
     flag = true;
 }
@@ -54,7 +54,7 @@ if (myHome.Province.ToLower() == "mb")
 // Option 1:
 if (myHome.Province.ToLower() == "ab" ||
     myHome.Province.ToLower() == "bc" ||
-    myHome.Province.ToLower().== "sk" ||
+    myHome.Province.ToLower() == "sk" ||
     myHome.Province.ToLower() == "mb")
 {
     flag = true;
@@ -74,5 +74,6 @@ switch (myHome.Province.ToLower())
     default:
         {
             flag = false;
+            break;
         }
 }
