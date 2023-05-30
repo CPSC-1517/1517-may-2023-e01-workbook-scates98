@@ -13,9 +13,34 @@ namespace OOPsReview
         // creates private FIELDS
 
         // ** PROPERTIES ** //
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName
+        {
+            get { return _FirstName; } 
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("First name is required");
+                }
+                _FirstName = value;
+            }
+        }
+        
+        public string LastName
+        {
+            get { return _LastName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("Last name is required");
+                }
+                _LastName = value;
+            }
+        }
+        
         public Residence Address { get; set; } 
+        
         public List<Employment> EmploymentPositions { get; set; } = new List<Employment>();
         // creates an instance of the List so List is NOT null (there is a list available)
 
@@ -23,16 +48,6 @@ namespace OOPsReview
         // ** GREEDY CONSTRUCTOR ** //
         public Person(string firstName, string lastName, Residence address, List<Employment> employmentPositions)
         {
-            //if (string.IsNullOrEmpty(firstName))
-            if (string.IsNullOrWhiteSpace(firstName))
-            {
-                throw new ArgumentNullException(nameof(firstName), "First name is required");
-            }
-            //if (string.IsNullOrEmpty(lastName))
-            if (string.IsNullOrWhiteSpace(lastName))
-            {
-                throw new ArgumentNullException(nameof(lastName), "Last name is required");
-            }
             FirstName = firstName;
             LastName = lastName;
             Address = address;
@@ -52,6 +67,12 @@ namespace OOPsReview
             FirstName = "unknown";
             LastName = "unknown";
 
+        }
+
+        public void ChangeName(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
         }
     }
 }
