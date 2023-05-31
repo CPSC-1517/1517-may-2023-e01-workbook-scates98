@@ -64,11 +64,15 @@ namespace TDDUnitTestDemo
         public void Change_FirstName_to_New_Name()
         {
             // Arrange (setup the test)
-            string firstName = "Chris";
-            string lastName = "Cates";
-            Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            //string firstName = "Chris";
+            //string lastName = "Cates";
+            //Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            //Person sut = new Person(firstName, lastName, address, null);
+            // ^^^^ Commented out because it was replaced by METHOD ^^^^^
+
+            Person me = Make_SUT_Instance();
             string expectedAddress = "1051,Maple St.,Edmonton,AB,T6Y7U8";
-            Person me = new Person(firstName, lastName, address, null);
+            
 
             string expectedFirstName = "bob";
 
@@ -84,12 +88,15 @@ namespace TDDUnitTestDemo
         public void Change_LastName_to_New_Name()
         {
             // Arrange (setup the test)
-            string firstName = "Chris";
-            string lastName = "Cates";
-            Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-            string expectedAddress = "1051,Maple St.,Edmonton,AB,T6Y7U8";
-            Person me = new Person(firstName, lastName, address, null);
+            //string firstName = "Chris";
+            //string lastName = "Cates";
+            //Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            //Person sut = new Person(firstName, lastName, address, null);
+            // ^^^^ Commented out because it was replaced by METHOD ^^^^^
 
+            Person me = Make_SUT_Instance();
+
+            string expectedAddress = "1051,Maple St.,Edmonton,AB,T6Y7U8";
             string expectedLastName = "bob";
 
             // Act (execution)
@@ -105,10 +112,15 @@ namespace TDDUnitTestDemo
         public void Change_Both_First_and_Last_Name_to_New_Name()
         {
             // Arrange
-            string firstName = "Chris";
-            string lastName = "Cates";
-            Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-            Person me = new Person(firstName, lastName, address, null);
+            // Arrange (setup the test)
+            //string firstName = "Chris";
+            //string lastName = "Cates";
+            //Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            //Person sut = new Person(firstName, lastName, address, null);
+            // ^^^^ Commented out because it was replaced by METHOD ^^^^^
+
+            Person me = Make_SUT_Instance();
+
             string expectedFirstName = "pat";
             string expectedLastName = "smith";
 
@@ -119,6 +131,41 @@ namespace TDDUnitTestDemo
             me.FirstName.Should().Be(expectedFirstName);
             me.LastName.Should().Be(expectedLastName);
         }
+
+        [Fact]
+        public void Return_the_FullName_of_Person()
+        {
+            // Arrange (setup the test)
+            //string firstName = "Chris";
+            //string lastName = "Cates";
+            //Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            //Person sut = new Person(firstName, lastName, address, null);
+            // ^^^^ Commented out because it was replaced by METHOD ^^^^^
+
+            Person me = Make_SUT_Instance();
+
+            string expectedFullName = "Cates, Chris";
+
+            // Act (execution)
+            string actual = me.FullName;
+            
+
+            // Assert (testing of the action / what result do you expect)
+            actual.Should().Be(expectedFullName);
+        }
+
+        // ** METHOD ** //
+        public Person Make_SUT_Instance()
+        {
+            string firstName = "Chris";
+            string lastName = "Cates";
+            Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            Person me = new Person(firstName, lastName, address, null);
+            return me;
+            // The above code is put into a METHOD to cut out the duplication of this code from all test procedures
+        }
+
+
 
         #endregion
 
@@ -159,17 +206,20 @@ namespace TDDUnitTestDemo
         public void Throw_Exception_When_Setting_FirstName_to_Missing_Data(string changeName)
         {
             // Arrange (setup the test)
-            string firstName = "Chris";
-            string lastName = "Cates";
-            Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-            string expectedAddress = "1051,Maple St.,Edmonton,AB,T6Y7U8";
-            Person me = new Person(firstName, lastName, address, null);
+            //string firstName = "Chris";
+            //string lastName = "Cates";
+            //Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            //Person sut = new Person(firstName, lastName, address, null);
+            // ^^^^ Commented out because it was replaced by METHOD ^^^^^
+
+            Person me = Make_SUT_Instance();
+
             //string expectedFirstName = firstName;
 
             // Act (execution)
             //Action action = () => new Person(firstName, lastName, address, null);
             //              ^^^ This is a Delegate ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            
+
             // Act (execution)
             // Testing: Will the property capture an invalid name change
             Action action = () => me.FirstName = changeName;
@@ -196,12 +246,16 @@ namespace TDDUnitTestDemo
         public void Throw_Exception_When_Setting_LastName_to_Missing_Data(string changeName)
         {
             // Arrange (setup the test)
-            string firstName = "Chris";
-            string lastName = "Cates";
-            Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
-            string expectedAddress = "1051,Maple St.,Edmonton,AB,T6Y7U8";
-            Person me = new Person(firstName, lastName, address, null);
+            //string firstName = "Chris";
+            //string lastName = "Cates";
+            //Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            //Person sut = new Person(firstName, lastName, address, null);
+            // ^^^^ Commented out because it was replaced by METHOD ^^^^^
 
+            Person me = Make_SUT_Instance();
+
+
+            string expectedAddress = "1051,Maple St.,Edmonton,AB,T6Y7U8";
             // Act (execution)
             // Testing: Will the property capture an invalid name change
             Action action = () => me.LastName = changeName;
@@ -221,11 +275,14 @@ namespace TDDUnitTestDemo
         [InlineData("Chris", "     ")]
         public void Throw_Expection_When_Changing_First_And_Last_Name(string changefirstname, string changelastname)
         {
-            //Arrange (setup)
-            string firstname = "Chris";
-            string lastname = "Cates";
-            Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6W3C8");
-            Person me = new Person(firstname, lastname, address, null);
+            // Arrange (setup the test)
+            //string firstName = "Chris";
+            //string lastName = "Cates";
+            //Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            //Person sut = new Person(firstName, lastName, address, null);
+            // ^^^^ Commented out because it was replaced by METHOD ^^^^^
+
+            Person me = Make_SUT_Instance();
 
 
 
@@ -235,6 +292,45 @@ namespace TDDUnitTestDemo
             //Assert (testing of the action)
             action.Should().Throw<ArgumentNullException>().WithMessage("*is required*");
         }
+
+
+        //////////////////////////////////////
+        // COPIED FROM CLASS TEAMS MEETING ///
+        //////////////////////////////////////
+        ///
+
+        [Theory]
+        [InlineData(null, "welch")]
+        [InlineData("don", null)]
+        [InlineData("", "welch")]
+        [InlineData("don", "")]
+        [InlineData("     ", "welch")]
+        [InlineData("don", "     ")]
+        public void Throw_Exception_When_Changing_FirstName_And_LastName(string changedfirstname, string changedlastname)
+        {
+
+            // Arrange (setup the test)
+            //string firstName = "Chris";
+            //string lastName = "Cates";
+            //Residence address = new Residence(1051, "Maple St.", "Edmonton", "AB", "T6Y7U8");
+            //Person sut = new Person(firstName, lastName, address, null);
+            // ^^^^ Commented out because it was replaced by METHOD ^^^^^
+
+            Person me = Make_SUT_Instance();
+            
+            string expectedaddress = "123,Maple St.,Edmonton,AB,T6Y7U8";
+
+
+            // Act Area (execution) ------ SUT means subject under test
+            Action action = () => me.ChangeName(changedfirstname, changedlastname);
+            ;
+            // Assert Area (testing of the action)
+            action.Should().Throw<ArgumentNullException>().WithMessage("*is required*");
+
+        } // End of Throw_Exception_When_Changing_FirstName_And_LastName Test
+        
+
+
         #endregion
     }
 }

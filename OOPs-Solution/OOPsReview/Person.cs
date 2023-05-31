@@ -44,6 +44,8 @@ namespace OOPsReview
         public List<Employment> EmploymentPositions { get; set; } = new List<Employment>();
         // creates an instance of the List so List is NOT null (there is a list available)
 
+        public string FullName { get { return LastName + ", " + FirstName; } }
+
 
         // ** GREEDY CONSTRUCTOR ** //
         public Person(string firstName, string lastName, Residence address, List<Employment> employmentPositions)
@@ -68,6 +70,8 @@ namespace OOPsReview
             LastName = "unknown";
 
         }
+        
+        
 
         public void ChangeName(string firstName, string lastName)
         {
