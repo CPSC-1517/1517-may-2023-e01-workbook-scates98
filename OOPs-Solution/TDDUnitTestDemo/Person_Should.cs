@@ -154,6 +154,41 @@ namespace TDDUnitTestDemo
             actual.Should().Be(expectedFullName);
         }
 
+        [Fact]
+        public void Return_the_Number_of_Employment_Instances_For_New_Person()
+        {
+            // Arange (setup)
+            // This tests for NO Employment Instances
+            Person sut = Make_SUT_Instance();
+
+            // Act (execution)
+            int actual = sut.NumberOfEmployments;
+
+            // Assert (testing of the action / what result do you expect)
+            actual.Should().Be(0);
+        }
+
+        [Fact]
+        public void Add_First_Employment_Instance()
+        {
+            // Arange (setup)
+            // This tests for NO Employment Instances
+            Person sut = Make_SUT_Instance();
+            int expectedNumberOfEmployments = 1;
+
+            Employment employment = new Employment("TDD member", SupervisoryLevel.TeamMember, new DateTime(2018, 03, 10));
+            // Creates an instance of Employment
+
+            //Act (execution)
+            sut.AddEmployment(employment);
+
+            // Assert (testing of the action / what result do you expect)
+            sut.NumberOfEmployments.Should().Be(expectedNumberOfEmployments);
+
+
+        }
+
+
         // ** METHOD ** //
         public Person Make_SUT_Instance()
         {

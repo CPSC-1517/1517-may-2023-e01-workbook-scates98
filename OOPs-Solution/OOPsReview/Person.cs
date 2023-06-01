@@ -46,6 +46,8 @@ namespace OOPsReview
 
         public string FullName { get { return LastName + ", " + FirstName; } }
 
+        public int NumberOfEmployments { get { return EmploymentPositions.Count(); } }
+
 
         // ** GREEDY CONSTRUCTOR ** //
         public Person(string firstName, string lastName, Residence address, List<Employment> employmentPositions)
@@ -77,6 +79,12 @@ namespace OOPsReview
         {
             FirstName = firstName;
             LastName = lastName;
+        }
+
+
+        public void AddEmployment(Employment employment)
+        {
+            EmploymentPositions.Add(employment);
         }
     }
 }
