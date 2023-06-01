@@ -84,6 +84,10 @@ namespace OOPsReview
 
         public void AddEmployment(Employment employment)
         {
+            if(employment == null)
+            {
+                throw new ArgumentNullException("Employment record position is required");
+            }
             EmploymentPositions.Add(employment);
         }
     }
