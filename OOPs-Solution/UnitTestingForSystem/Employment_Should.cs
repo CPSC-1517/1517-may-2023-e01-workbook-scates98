@@ -180,7 +180,7 @@ namespace UnitTestingForSystem
             TimeSpan days = DateTime.Today - StartDate;
             double Years = Math.Round((days.Days / 365.2), 1);
             Employment sut = new Employment(Title, Level, StartDate, Years);
-            string expectedCSV = $"SAS Lead,TeamLeader,Oct. 24, 2020,{Years}";
+            string expectedCSV = $"SAS Lead,TeamLeader,Oct. 24 2020,{Years}";
 
             //When - Act execution
             string actual = sut.ToString();
@@ -189,6 +189,60 @@ namespace UnitTestingForSystem
             actual.Should().Be(expectedCSV);
 
         }
+
+        // Creates a test to break up a string and add it into a instance of a class
+        [Fact]
+        public void Parse_a_String_into_an_Employment_Instance()
+        {
+            // Arrange
+            DateTime StartDate = new DateTime(2020, 10, 24);
+            TimeSpan days = DateTime.Today - StartDate;
+            double Years = Math.Round((days.Days / 365.2), 1);
+            string CSVDataRecord = $"SAS Lead,TeamLeader,Oct. 24 2020,{Years}\n";
+            // ^^^^ Sets up the record
+
+            string expectedCSV = $"SAS Lead,TeamLeader,Oct. 24 2020,{Years}";
+            // ^^^^ Sets up the expected result
+            
+
+            // Act
+            Employment actual = Employment.Parse(CSVDataRecord);
+            // Creates a static method
+            // Requires Parse method to be written
+
+            // Assert
+            actual.ToString().Should().Be(expectedCSV);
+
+        }
+
+        
+        [Fact]
+        public void TryParse_a_String_into_an_Employment_Instance()
+        {
+            // Arrange
+            DateTime StartDate = new DateTime(2020, 10, 24);
+            TimeSpan days = DateTime.Today - StartDate;
+            double Years = Math.Round((days.Days / 365.2), 1);
+            string CSVDataRecord = $"SAS Lead,TeamLeader,Oct. 24 2020,{Years}\n";
+            // ^^^^ Sets up the record
+
+            string expectedCSV = $"SAS Lead,TeamLeader,Oct. 24 2020,{Years}";
+            // ^^^^ Sets up the expected result
+
+            Employment actual = null;
+
+            // Act
+            bool pass = Employment.TryParse(CSVDataRecord, out actual);
+            // Creates a static method
+            // Requires Parse method to be written
+
+            // Assert
+            actual.ToString().Should().Be(expectedCSV);
+            pass.Should().BeTrue();
+
+        }
+
+
         #endregion
 
         #region Invalid Data
@@ -321,6 +375,46 @@ namespace UnitTestingForSystem
             action.Should().Throw<ArgumentException>().WithMessage("*future*");
 
         }
+
+
+        // Creates a fail test to break up a string and add it into a instance of a class
+        [Theory]
+        [InlineData(@"SAS LeadTeamLeader,Oct. 24 2020,2.8\n")]     // Not enough parts
+        [InlineData(@"SAS Lead,TeamLeader,Oct. 24 2020,2.8,extra field\n")]    // Too many parts
+        public void Throw_Exception_When_Invalid_Parsing_a_String_into_an_Employment_Instance(string csvdatarecord)
+        {
+            // Arrange
+            Employment actual = null;
+            string expectedCSV = $"SAS Lead,TeamLeader,Oct. 24 2020";
+
+
+            // Act
+            Action action = () => actual = Employment.Parse(csvdatarecord);
+
+            // Assert
+
+            action.Should().Throw<FormatException>().WithMessage("*expected format*");
+
+        }
+
+        [Theory]
+        [InlineData(@"SAS LeadTeamLeader,Oct. 24 2020,2.8\n")]     // Not enough parts
+        [InlineData(@"SAS Lead,TeamLeader,Oct. 24 2020,2.8,extra field\n")]    // Too many parts
+        public void Return_a_False_When_Invalid_TryParsing_a_String_into_an_Employment_Instance(string csvdatarecord)
+        {
+            // Arrange
+            Employment actual = null;
+            bool pass = false;
+
+            // Act
+            pass = Employment.TryParse(csvdatarecord, out actual);
+
+            // Assert
+            pass.Should().BeFalse();
+            actual.Should().BeNull();
+
+        }
+
         #endregion
     }
 }

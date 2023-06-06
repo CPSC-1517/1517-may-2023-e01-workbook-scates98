@@ -247,11 +247,71 @@ namespace OOPsReview
         public override string ToString()
             // override forces system to use the string in this method
         {
-            return $"{Title},{Level},{StartDate.ToString("MMM dd, yyyy")},{Years}";
+            return $"{Title},{Level},{StartDate.ToString("MMM dd yyyy")},{Years}";
             // returns the Property 'Title' 
             // DateTime is an object, thus it as a ToString built-in. Using overloading we can format the DateTime string
             // this creates a physical instance of the property
         }
             
+        public static Employment Parse(string str)
+        {
+            // Attempts to change the contents of a string into another datatype
+            // Example:     string 55 -> int x = int.Parse(string);  <-- success
+            //              string bob --> int x = int.Parse(string);  <-- failed with an exception message
+
+            // Text is a string of CSV values (comma seperated values)
+            // Seperate the string of values into individual strings 
+            //  using .Split(delimiter)  <<-- .Split is a method
+            //  a delimeter is normally some type of charager (, ; \n \r)
+            //The .Split() method returns an ARRAY of strings
+
+            //We test the Array size to determine if the different "parts" have
+            //  been supplied
+            //  If not supplied, throw an exception
+            string[] pieces = str.Split(',');
+            
+            // four pieces of data are expected from 'Employment' greedy constructor
+            if(pieces.Length != 4)
+            {
+                throw new FormatException($"Record {str} not in the expected format");
+            }
+
+            //  If sufficient parts have been supplied, you can continue your logic
+            //  in creating the instance of intent
+
+            // create a new instance using the greedy constructor
+            return new Employment(pieces[0],
+                (SupervisoryLevel)Enum.Parse(typeof(SupervisoryLevel), pieces[1]),
+                DateTime.Parse(pieces[2]),
+                double.Parse(pieces[3])
+                );
+
+        }
+
+        public static bool TryParse(string str, out Employment employment)
+        {
+            // Use this method (TryParse) to check to see if the parse could actually be done
+            //  The result of the attemt is:
+            //      a) True and the converted string value is placed into the outgoing variable
+            //      b) False and no conversion of the string is done
+            //          (optionally, you can include a Try/Catch within the method to capture
+            //           (error handling) the Parse error so that it does NOT return to the
+            //           program and your false value will have a meaning)
+
+            // exmple:  if(xxxx.TryParse(string, out myNumericValue) {.....} else {.....}
+
+            bool result = true;     // assume success
+            employment = null;      // provides a null value to return something
+            try
+            {
+                employment = Parse(str);
+            }
+            catch(FormatException ex)
+            {
+                result = false;     // indicates failure
+            }
+            return result;
+
+        }
     }
 }
