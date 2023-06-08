@@ -72,6 +72,7 @@ void Write_Employment_Collection_To_CSV(List<Employment> employments)
     File.AppendAllLines(filepathname, emplymentCollectionAsStrings);
 }
 
+// METHOD??
 List<Employment> Read_Employment_Collection_From_CSV()
 {
     // Create the file path: D:\Temp\EmploymentData.txt
@@ -82,37 +83,48 @@ List<Employment> Read_Employment_Collection_From_CSV()
     // Convert List<employment> into a List<string> (list of strings)
     List<Employment> employmentCollection = new List<Employment>();
 
-    // Read ALL lines
-    // Returns an array of all lines from a file as strings
-    string[] employmentCSVStrings = File.ReadAllLines(filepathname);
 
-    // convert each string from th CSV data into an Employment Instance
-    // Use the .Parse for this action
-    foreach (string line in employmentCSVStrings)
+    try
     {
-        try
-        {
-            employmentInstance = Employment.Parse(line);
-            employmentCollection.Add(employmentInstance);
-        }
-        catch (ArgumentNullException ex)
-        {
-            Console.WriteLine($"\tRecord Error: {ex.Message} on data line {line}");
-        }
-        catch (ArgumentOutOfRangeException ex) // is a sub Argument of ArgumentException so it CANNOT come first
-        {
-            Console.WriteLine($"\tRecord Error: {ex.Message} on data line {line}");
-        }
-        catch (ArgumentException ex)
-        {
-            Console.WriteLine($"\tRecord Error: {ex.Message} on data line {line}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"\tRecord Error: {ex.Message} on data line {line}");
-        }
+        // Read ALL lines
+        // Returns an array of all lines from a file as strings
+        string[] employmentCSVStrings = File.ReadAllLines(filepathname);
 
+        // convert each string from th CSV data into an Employment Instance
+        // Use the .Parse for this action
+
+        foreach (string line in employmentCSVStrings)
+        {
+            try
+            {
+                employmentInstance = Employment.Parse(line);
+                employmentCollection.Add(employmentInstance);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($"\tRecord Error: {ex.Message} on data line {line}");
+            }
+            catch (ArgumentOutOfRangeException ex) // is a sub Argument of ArgumentException so it CANNOT come first
+            {
+                Console.WriteLine($"\tRecord Error: {ex.Message} on data line {line}");
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"\tRecord Error: {ex.Message} on data line {line}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\tRecord Error: {ex.Message} on data line {line}");
+            }
+
+        }
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+
+
     return employmentCollection;
 
 }
