@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 // ^^ copied from SupervisoryLevel.cs for no other reason than to keep consistency between .cs files
 // 
@@ -123,8 +124,7 @@ namespace OOPsReview
         // Auto-implemented properties can have either a public or private set
         // Using a public or private set is a design decision
 
-
-
+       
 
         // ** CONSTRUCTORS ** //
         //
@@ -311,6 +311,22 @@ namespace OOPsReview
                 result = false;     // indicates failure
             }
             return result;
+
+
+            // ALTERNATIVE
+            // If you wish to have the FormatException passed on to the calling code
+            //  then DO NOT include the try/catch within your TryParse method
+            
+            // if you want error messages to go through:
+
+            //result = false;
+            //if(string.IsNullOrWhiteSpace(str))
+            //{
+            //    throw new ArgumentNullException("No value was supplied for parsing");
+            //}
+            //employment = null;
+            //employment = Parse(str);
+            //return true;
 
         }
     }

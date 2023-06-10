@@ -6,6 +6,7 @@
 // 3. Check the appropriate project class library (OOPsReview)
 
 using OOPsReview;
+using System.Text.Json;
 
 Console.WriteLine("Hello, World!");
 
@@ -14,7 +15,97 @@ Console.WriteLine("Hello, World!");
 // RefactorSample();
 
 
-FileIOCSV(); // Calls method for file operations
+//FileIOCSV(); // Calls method for file operations
+
+
+// JSON PARSING
+// Explore JSON files writing and reading
+// When using JSON, expect to use constructors
+/*
+ * The following Needs to be set in the class - More research needed
+[JsonInclude]
+public string PublicDataMemberNotProperty;
+// Used only with public data members
+*/
+
+
+
+Person me = CreatePerson();
+DisplayPerson(me);
+// file path D:\temp\PersonData.json
+string filepathname = @"D:\temp\PersonData.json";
+SaveAsJson(me, filepathname);
+
+// METHOD
+Person CreatePerson()
+{
+    // resident record:
+    Residence myHome = new Residence(123, "Main St.", "Edmonton", "AB", "T6W3C8");
+
+    // List of Employments calls method
+    List<Employment> employments = Read_Employment_Collection_From_CSV();
+
+    Person person = new Person("Chris", "Cates", myHome, employments);
+    return person;
+
+}
+
+void DisplayPerson(Person person)
+{
+    Console.WriteLine("\nPerson Data\n");
+    Console.WriteLine($"Name: {person.FullName}");
+    Console.WriteLine($"Residence: {person.Address.ToString()}");
+    Console.WriteLine($"\nEmployments");
+    foreach(var item in person.EmploymentPositions)
+    {
+        Console.WriteLine($"\t{item.ToString()}");
+    }
+}
+
+
+void SaveAsJson(Person person, string filepathname)
+{
+    // The term used to write Json files is called: Serialization
+    // The classes used are referred to as: Serializers
+    // With writing we can make the file produce more readable format
+    //  using indentation
+    // JSON is very good at using objects and properties
+    // HOWEVER: it needs help prompting to work better with fields
+    // To help with public fields within a class add an annotation (attribute title)
+    //  in front of the field declaration called: [JsonInclude]
+    //  also the namespace: using.System.Text.Json.Serialization;
+    // Example: Assume class has a public string called: FieldNotAProperty
+    //  [JSonInclude]
+    //  public string FieldNotAProperty;
+
+    // Create options to use during serialation
+    JsonSerializerOptions options = new JsonSerializerOptions
+    {
+        // During this instance creation, you can refer to properties 
+        //  within the class directly by name and assign a value to
+        //  that property.
+
+        WriteIndented = true,
+        IncludeFields = true    // this is for the public non property fields of a class
+                                // doesn't hurt to include this even if you don't have any fields
+
+    };
+
+    // Remember to case the Serialize<T> to the appropriate class definition
+    //  This converts your instance to a JSON string
+    string jsonstring = JsonSerializer.Serialize<Person>(person, options);
+    // Uses Person as a "blueprint" for the JSON string
+    //  Person, Employment, Residence could all work between <...>
+    // all the text is included in the string
+
+    // Write the JSON string out to a .json text file
+    File.WriteAllText(filepathname, jsonstring);
+    
+    // Path class
+}
+
+
+
 
 // METHOD 
 void FileIOCSV()
