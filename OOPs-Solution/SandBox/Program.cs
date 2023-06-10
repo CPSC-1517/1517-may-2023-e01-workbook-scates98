@@ -29,12 +29,17 @@ public string PublicDataMemberNotProperty;
 */
 
 
-
+// create json file
 Person me = CreatePerson();
 DisplayPerson(me);
 // file path D:\temp\PersonData.json
 string filepathname = @"D:\temp\PersonData.json";
 SaveAsJson(me, filepathname);
+
+// read json file
+Person jsonme = ReadAsJson(filepathname);
+DisplayPerson(jsonme);
+
 
 // METHOD
 Person CreatePerson()
@@ -104,6 +109,38 @@ void SaveAsJson(Person person, string filepathname)
     // Path class
 }
 
+
+Person ReadAsJson(string filepathname)
+{
+    Person person = null;
+
+    try
+    {
+        
+        // bring in the json text file
+        string jsonstring = File.ReadAllText(filepathname);
+
+        // use the deserializer to unpack the json string into
+        //  the expected structure <Person>
+        // It is IMPORTANT that the greedy constructor paramter names
+        //  are identical to the attribute names used in the json string
+        // They are NOT case sensitive 
+        // They do NOT have to be in the same order as the JSON string
+        // IMPORTANT: The names MUST be identical!
+
+        person = JsonSerializer.Deserialize<Person>(jsonstring);
+        
+        
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+
+    return person;
+
+
+}
 
 
 
