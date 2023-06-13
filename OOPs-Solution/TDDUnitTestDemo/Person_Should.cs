@@ -209,9 +209,9 @@ namespace TDDUnitTestDemo
             int expectednumberofemployment = 3;
             List<Employment> expectedemployments = new List<Employment>()
             {
-                //emp1,
-                //emp2,
-                //employment
+                emp1,
+                emp2,
+                employment
             };
 
             //Act (execution)
