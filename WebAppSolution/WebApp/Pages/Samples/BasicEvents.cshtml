@@ -1,0 +1,21 @@
+﻿@page
+@model WebApp.Pages.Samples.BasicEventsModel
+@{
+    // Inside this @ block is the C# coding environment
+
+    // Set the browser tab Title using the following code:
+    ViewData["Title"] = "Basic Events";
+}
+
+<h1>Razor Page Event Basics</h1>
+
+
+ @*
+    Switching back and forth between C# and HTML 
+    By using the @ symbol we call C#
+    Using HTML elements calls HTML
+ *@
+@if(!string.IsNullOrWhiteSpace(Model.FeedBack))
+{
+    <p>@Model.FeedBack</p>
+}
