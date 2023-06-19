@@ -1,0 +1,44 @@
+﻿@page
+@model WebApp.Pages.Samples.BasicDataManagementModel
+@{
+    ViewData["Title"] = "Basic Data Management";
+}
+
+<h1>Basic Data Management</h1>
+<blockquote>
+    This page will explore the most common controls you will probably use on a form. There will be multiple buttons (events) to code in the PageModel (a.k.a. Code-Behind). The controls will be a mix of label, input, select, textarea, checkbox, radio, and buttons.
+</blockquote>
+
+@*
+*******************************************************************************************************
+
+  Controls: label, input, select, textarea, checkbox, radio, and buttons
+
+    <label>: Does not need arguments
+             Can have helper tags: asp-for, asp-attributes, asp-validation-for
+             Depending on CSS stylesheets, you can get different looks
+    <input>: This is your major control to use for data input
+           : It can be set to various types of input data usin the attribute type="xxxx"
+           : Can tie the control of a propert on the PageModel using asp-for="xxxx"
+               where xxxx is the name of the property on PageModel
+           : The step attribute is used to indicate the number of decimal places allowed for
+               the value. The default is 1 (integer stepping). If you wan to allow decimal places
+               then you need to set the step attribute to a value less than 1 (ex. 0.01)
+ <textarea>: Use to accept formin input for large amunts of text (ie. comments)
+           : Can tie the control to a prpoerty on the PageModel using asp-for="xxxx"
+               where xxxx is the name o f the property on the PageModel
+           : Can se the rows and cols attributes to control the size of the textarea
+
+*******************************************************************************************************
+*@
+
+<form method="post">
+    <label>
+        Enter a number: 
+        <input type="number" asp-for="Num" step="0.01"/>
+    </label>
+    <label>
+        TextArea for large amounts of text (ie. comments):
+        <textarea asp-for="MassText" rows="5" cols="60"></textarea>
+    </label>
+</form>

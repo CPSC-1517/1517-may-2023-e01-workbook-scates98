@@ -49,7 +49,11 @@ OnPost<eventname>(): executes when the form is submitted
                    :   adding a page-handler to your submit button overrides the default
                        OnPost() event and executes the OnPost<eventname>() event instead.
                        That is code in your PageModel class
-                        
+   
+  IMPORTANT: If you have a single button, the default OnPost() method will work. The moment you
+             have a second button with a page handler (asp-page-handler) the default button
+             will only work once after page load and then stop working.
+             All buttons will need to have a page handler!
 
 *******************************************************************************************************
 *@
@@ -60,7 +64,8 @@ OnPost<eventname>(): executes when the form is submitted
                 - also known as a 'Post-back'
                 - An alternative page can be specified, where data is sent for processing
     -->
-    @*<button type="submit">Press me (submit form to default OnPost event code)</button>  -- *@
+    @*<button type="submit">Press me (submit form to default OnPost event code)</button>  
+        ^^^^^ stops working because page handler declared for second button. requiring a page handler for this button *@
     <button type="submit" asp-page-handler="FirstButton">Press me (submit form to default OnPost event code)</button>
 
     &nbsp;&nbsp;
