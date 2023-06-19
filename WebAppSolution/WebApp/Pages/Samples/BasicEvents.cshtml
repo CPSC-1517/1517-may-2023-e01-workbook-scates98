@@ -19,3 +19,50 @@
 {
     <p>@Model.FeedBack</p>
 }
+
+@*
+*******************************************************************************************************
+    <form> arguements: method - indicates how data is transferred to the server
+                          get - visisble on the URL in the browser address bar in PLAIN TEXT
+                                uses the OnGet method
+                         post - not visible on the URL, embedded within the form objects
+                                sent to server in the body of the request
+                       action - directs the server to the page to process the form
+                                optional - does not need to be defined
+                                missing or ="" - directs to the same page
+
+         <button> three types - submit: sends the form data to the server for processing
+                              - reset: clears the form and does not send data to the server
+                              - button: ??
+
+    Events: OnGet(): executes when the page is first contstructed
+                   : executes if method="get" is specified in the <form> tag
+
+           OnPost(): executes when the page is first constructed
+                   : executes if method="post" is specified in the <form> tag
+                       is the default event if no specific event is specified by asp-page-handler
+
+OnPost<eventname>(): executes when the form is submitted
+                   : executes if method="post" is specified in the <form> tag
+                   : executes if asp-page-handler="xxxxxxx" is specified in the <form> tag
+                   :   page handlers are used when there are multiple buttons on the form
+                   :   adding a page-handler to your submit button overrides the default
+                       OnPost() event and executes the OnPost<eventname>() event instead.
+                       That is code in your PageModel class
+                        
+
+*******************************************************************************************************
+*@
+<form method="post" action="">
+    <!-- Method indicates how transferred to the server using GET or POST
+         When GET is used, the On Get method is called
+         Action - When left as default, it will return the current page 
+                - also known as a 'Post-back'
+                - An alternative page can be specified, where data is sent for processing
+    -->
+    @*<button type="submit">Press me (submit form to default OnPost event code)</button>  -- *@
+    <button type="submit" asp-page-handler="FirstButton">Press me (submit form to default OnPost event code)</button>
+
+    &nbsp;&nbsp;
+    <button type="submit" asp-page-handler="SecondButton">Press me (submit form to OnPostSecondButton event code)</button>
+</form>

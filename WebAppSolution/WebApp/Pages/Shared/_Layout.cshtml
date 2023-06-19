@@ -49,7 +49,9 @@
         <nav>
             <ul>
                 <!-- this is the root of the menu (top level) -->
-                <li><a asp-area="" asp-page="/Index"><strong>Web App</strong></a></li>
+                @*<li><a asp-area="" asp-page="/Index"><strong>Web App</strong></a></li>  -- Removed text *@
+                <li><a asp-area="" asp-page="/Index">
+                    <img src="~/img/CP_Logo_Only_Transparent_80x80.png" alt="Creative Programming Logo" title="Click to go home"/></a></li>
                 <li><a asp-area="" asp-page="/Index"><strong>Home</strong></a></li>@*Creates an entry in the menu linking to the BasicEvents page*@
                 <li><a asp-area="" asp-page="/Samples/BasicEvents"><strong>Basic Events</strong></a></li>   
                 <li><a asp-area="" asp-page="/Privacy"><strong>Privacy</strong></a></li>
@@ -71,7 +73,7 @@
 
     <footer>
         <div>
-            &copy; 2023 - WebApp by Chris Cates - CPSC1517 NAIT Course (All Rights Reserved)<a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2023 - WebApp by Chris Cates - CPSC1517 NAIT Course (All Rights Reserved) <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
