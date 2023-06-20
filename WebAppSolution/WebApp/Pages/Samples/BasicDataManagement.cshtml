@@ -28,6 +28,23 @@
            : Can tie the control to a prpoerty on the PageModel using asp-for="xxxx"
                where xxxx is the name o f the property on the PageModel
            : Can se the rows and cols attributes to control the size of the textarea
+   <select>: Use to accept form input for a list of items 
+             Other Names: combobox, dropdownlist, selectionlist
+   <option>: This control can have an optional "prompt line" which would be the first line 
+                in the list
+           : Select: Requires a pair element tag set (opening & closing)
+           : The option tag can have a value attribute which is the value that will be 
+                returned to the PageMode
+           : Option: Requires a paired element tag set
+           : Each line in the list is a separate option tag
+                this control can be coded with "hard-coded" value OR
+                logically loaded from a collection of data
+            : Syntax of Option tag is:
+                <option value="xxxx">yyyy</option>
+                where xxxx is the value to be returned to the PageModel
+                            this attribute can be omitted if you are not using the value attribute
+                            then the return value will be the text displayed in the list (yyyy)
+                      yyyy is the value to be displayed in the list
 
 *******************************************************************************************************
 *@
@@ -41,4 +58,28 @@
         TextArea for large amounts of text (ie. comments):
         <textarea asp-for="MassText" rows="5" cols="60"></textarea>
     </label>
+    <label>
+        Select a favoriute course from the dropdown list (select control):
+        <select asp-for="FavouriteCourse">
+            <option value="0">On Screen prompt line ...</option>
+            <option value="1008">Digital Media Tools</option>
+            <option value="1012">Programming Fundamentals</option>
+            <option value="1017">Web Design Fundamentals</option>
+            <option value="1517">Introduction to Web Applications</option>
+        </select>
+    </label>
+    <label>
+        Using a select without a value on the option tag
+        <select asp-for="FavouriteCourseNoValueOnOption">
+            <option>On Screen prompt line ...</option>
+            <option>Digital Media Tools</option>
+            <option>Programming Fundamentals</option>
+            <option>Web Design Fundamentals</option>
+            <option>Introduction to Web Applications</option>
+        </select>
+    </label>
+    <br/><br/>
+    <button type="submit" asp-page-handler="ControlProcessing">Submit Form Data</button>
 </form>
+<br/><br/>
+Processing Results: @Model.Feedback
