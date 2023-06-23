@@ -35,6 +35,12 @@ namespace WebApp.Pages.Samples
         [BindProperty]
         public string Feedback { get; set; }    // one-way property for messages
 
+
+        // This is an example of you managing the collection of errors on the form yourself
+        // The List is a list of errors collected during your validation
+        public List<string> ErrorList { get; set; } = new List<string>();
+
+
         public void OnGet()
         {
         }
