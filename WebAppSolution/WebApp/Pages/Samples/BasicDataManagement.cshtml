@@ -65,20 +65,24 @@
 <div asp-validation-summary="All" >
     @if(ModelState.ErrorCount>0)
     {
-        <p>Please review the following concerns to correct your submission:</p>
+        <p>Please review the validation summary of following concerns to correct your submission:</p>
     }
-    @if(Model.ErrorList.Count()>0)
-    {
-        <p>Please review the following concerns to correct your submission:</p>
-        <ul>
-            @foreach(var error in Model.ErrorList)
-            {
-                <li>@error</li>
-            }
-        </ul>
-    }
-</div>
 
+
+</div>
+@* MANUAL DISPLAY *@
+<div>
+ @if(Model.ErrorList.Count()>0)
+ {
+    <p>Please review the manual display of following concerns to correct your submission:</p>
+    <ul>
+        @foreach(var error in Model.ErrorList)
+        {
+            <li>@error</li>
+        }
+    </ul>
+}
+</div>
 
 <form method="post">
     <label>
@@ -111,6 +115,9 @@
     </label>
     <br/><br/>
     <button type="submit" asp-page-handler="ControlProcessing">Submit Form Data</button>
+    &nbsp;&nbsp;
+    @* Creates a new button which links to another page *@
+    <button type="submit" asp-page-handler="RedirectPage">Go to Basic Events</button>
 </form>
 <br/><br/>
 Processing Results: @Model.Feedback
