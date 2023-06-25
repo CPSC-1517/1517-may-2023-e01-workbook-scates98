@@ -95,20 +95,18 @@ namespace OOPsReview
         }
 
         // Validate the years of service in the employee position as a positive value
-
         public double Years
         {
             get { return _Years;  }     // used on the right side of an assignment statement or in an expression
             set                         // used on the left side of an assignment statement 
             {
                 //if (value < 0)        // using a utility's generic method to do this test
-                if (!Utilities.IsZeroOrPositive(value))
+                if (!Utilities.IsZeroOrPositive(value)) // calls the method on the Utility.cs class and passes the value being presented
                 {
                     throw new ArgumentOutOfRangeException(value.ToString());
                 }    
                 _Years = value;         // assigns the current value to the private data member
             }
-
         }
 
 
@@ -129,9 +127,9 @@ namespace OOPsReview
         // ** CONSTRUCTORS ** //
         //
         // Purpose of a constructor is to create an instance of your class in a known state
-        // Class dfinitions do NOT need a constructor
-        // If a class definition does NOT have a constructor, then the system will create
-        //  the instance and assign the system default value to each data member and/or auto-implemented property
+        // Class definitions do NOT need a constructor
+        // If a class definition does NOT have a constructor, then the system will create the instance using a default constructor
+        //      and assign the system default value to each data member and/or auto-implemented property
         // If you have no constructor, the common phrase is "using a system constructor"
 
         // ** IMPORTANT ** IF YOU CODE A CONSTRUCTOR IN YOUR CLASS, YOU ARE RESPONSIBLE FOR CODING ALL CONSTRUCTORS FOR THE CLASS!!
@@ -146,14 +144,14 @@ namespace OOPsReview
 
         public Employment()
         {
-            // This constructor will be used on creting a instance using:
+            // This constructor will be used on creating a instance using:
             //      Employment myInstance = new Employment();
             // A practice used is to avoid referencing the data members directly especially if the property contains validation
             Title = "Unknown";
             Level = SupervisoryLevel.TeamMember;
             StartDate = DateTime.Today;
             // optionally, you could set years to zero, but that is the system default value for a numeric
-            // therefore, you don't need to assigna a value unless you wanted to
+            // therefore, you don't need to assign a value unless you wanted to
         }
 
         // 2. Greedy constructor

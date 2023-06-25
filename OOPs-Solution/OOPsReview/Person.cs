@@ -66,7 +66,7 @@ namespace OOPsReview
         public Person()
         {
             //EmploymentPositions = new List<Employment>();   // create an empty instance of the list
-            // ^^^ this code not needed because we can create the list 
+            // ^^^ this code not needed because we can create the list in the property
 
             FirstName = "unknown";
             LastName = "unknown";

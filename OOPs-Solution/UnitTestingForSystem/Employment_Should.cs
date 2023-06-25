@@ -13,7 +13,7 @@ namespace UnitTestingForSystem
         // [Theory] is a unit test that receives input parameters
 
         #region Valid Data
-        [Fact]
+        [Fact]              // DEFINES THE FOLLOWING CODE IS A UNIT TEST
         public void Create_New_Default_Instance()
         {
             //Where - Arrangement setup
@@ -246,7 +246,7 @@ namespace UnitTestingForSystem
         #endregion
 
         #region Invalid Data
-        [Theory]
+        [Theory]            // DEFINES THE FOLLOWING CODE IS A UNIT TEST
         [InlineData(null)]
         [InlineData("")]
         [InlineData("      ")]

@@ -39,7 +39,7 @@ namespace TDDUnitTestDemo
         }
 
         [Fact]
-        public void Create_an_Instance_With_First_and_Last_Name_Residence_with_NO__List_Of_Employments()
+        public void Create_an_Instance_With_First_and_Last_Name_Residence_with_NO_List_Of_Employments()
         // create statements with meaningful name
         {
             // Arrange (setup the test)
