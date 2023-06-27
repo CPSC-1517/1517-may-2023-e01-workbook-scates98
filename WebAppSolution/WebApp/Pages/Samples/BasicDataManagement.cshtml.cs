@@ -111,7 +111,15 @@ namespace WebApp.Pages.Samples
             if (Num < 0)
             {
                 // Using ModelState
-                ModelState.AddModelError("", $"Num value of {Num} cannot be negative");
+                // We can associate the AddModelError with the asp-validation-for span control
+                //      on the form so the error message appears beside the input control
+                // The AddModelError version with 2 arguments is used to associate the error
+                //      with the span tag
+                // The first argument of the AddModelError is where you do your association
+                // The first argument is the property that is association property to the 
+                //      input control
+                //ModelState.AddModelError("", $"Num value of {Num} cannot be negative");
+                ModelState.AddModelError(nameof(Num), $"Num value of {Num} cannot be negative");
 
                 // Managing your own errors 
                 ErrorList.Add($"Num value of {Num} cannot be negative");
@@ -120,7 +128,7 @@ namespace WebApp.Pages.Samples
             if (string.IsNullOrWhiteSpace(MassText))
             {
                 // Using ModelState
-                ModelState.AddModelError("", $"MassText value cannot be empty");
+                ModelState.AddModelError(nameof(MassText), $"MassText value cannot be empty");
 
                 // Managing your own errors 
                 ErrorList.Add($"MassText value cannot be empty");
@@ -129,7 +137,7 @@ namespace WebApp.Pages.Samples
             if (FavouriteCourse == 0)
             {
                 // Using ModelState
-                ModelState.AddModelError("", $"FavouriteCourse value of {FavouriteCourse} cannot be null");
+                ModelState.AddModelError(nameof(FavouriteCourse), $"FavouriteCourse value of {FavouriteCourse} cannot be null");
 
                 // Managing your own errors 
                 ErrorList.Add($"FavouriteCourse value of {FavouriteCourse} cannot be null");
@@ -138,7 +146,7 @@ namespace WebApp.Pages.Samples
             if (FavouriteCourseNoValueOnOption == "On Screen prompt line ...")
             {
                 // Using ModelState
-                ModelState.AddModelError("", $"FavouriteCourseNoValueOnOption value cannot be null");
+                ModelState.AddModelError(nameof(FavouriteCourseNoValueOnOption), $"FavouriteCourseNoValueOnOption value cannot be null");
 
                 // Managing your own errors 
                 ErrorList.Add($"FavouriteCourseNoValueOnOption value cannot be null");

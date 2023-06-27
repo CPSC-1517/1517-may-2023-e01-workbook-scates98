@@ -1,0 +1,28 @@
+﻿:root{
+    --max-body-width: 80rem
+}
+.danger_color{
+    color: firebrick;
+    font-weight:bolder;
+}
+.error_area_color{
+    background-color: magenta;
+}
+
+.setflex{
+    display: flex;
+}
+.oneHalf{
+    width: 47%;
+    margin-right: 3%
+}
+.smallbox{
+    width: 60px;
+}
+
+.mediumbox {
+    width: 180px;
+}
+.largebox {
+    width: 300px;
+}
