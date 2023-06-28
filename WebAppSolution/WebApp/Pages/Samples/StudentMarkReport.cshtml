@@ -1,0 +1,68 @@
+﻿@page
+@model WebApp.Pages.Samples.StudentMarkReportModel
+@{
+    ViewData ["Title"]="File IO - Read"; //Creates a page title for web browser
+}
+
+<h1>File IO - Read</h1>
+
+
+@if (ModelState.ErrorCount > 0)
+{
+    <div asp-validation-summary="All" class="error_area_color danger_color">
+        <p>Please review the validation summary of following concerns to correct your submission:</p>
+    </div>
+}
+
+@if(Model.HasFeedback)
+{
+    <p>@Model.Feedback</p>
+}
+
+
+@* 
+    Demo of how to display a Tabular Report
+    
+    Here's what we'll do:
+    a) Check that we have at least a physical instance of the collection
+        If NOT, referencing the property will cause an abort
+    b) Check that we have something to display
+        If NOT, display an appropriate message
+        If there IS content, then display the content in a table
+*@
+
+@if(Model.studentMarks != null)
+{
+    if(Model.studentMarks.Count() == 0)
+    {
+        <p class="danger_color">There is no data to report</p>
+    }
+    else
+    {
+        // Create HTML table for the Tabular Report
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Assessment</th>
+                    <th>Assmt #</th>
+                    <th>Mark</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.studentMarks)
+                {
+                    <tr>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Assessment</td>
+                        <td>@item.AssessmentVersion</td>
+                        <td>@item.Mark</td>
+                    </tr>
+                }
+            </tbody>
+        </table>    
+    }
+
+}
