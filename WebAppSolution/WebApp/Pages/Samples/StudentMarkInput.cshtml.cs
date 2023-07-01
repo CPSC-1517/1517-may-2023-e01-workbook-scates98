@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.IO;
@@ -15,8 +16,11 @@ namespace WebApp.Pages.Samples
 
         public List<Assessment> assessmentList { get; set; } = new List<Assessment>();
 
+        //public StudentMarks studentRecord { get; set; }
+
+
+        [BindProperty]
         public StudentMarks studentRecord { get; set; }
-      
 
         [BindProperty]
         public string? FirstName { get; set; }
@@ -65,17 +69,59 @@ namespace WebApp.Pages.Samples
 
         public IActionResult OnPostRecord()
         {
+            // Form Validation
+            if (string.IsNullOrWhiteSpace(studentRecord.LastName))
+            {
+                ModelState.AddModelError("LastName","LastName is required");
+            }
+            if (studentRecord.Assessment == 0)
+            {
+                ModelState.AddModelError("Assessment","You have not selected an assessment.");
+            }
 
+            // Check if the data has passed all validation
+            if(ModelState.IsValid)
+            {
+                // Build an instance of StudentMarks
+                //studentRecord = new StudentMarks()
+                //{
+                //    FirstName = FirstName,
+                //    LastName = LastName,
+                //    Assessment = Assessment,
+                //    AssessmentVersion = AssessmentVersion,
+                //    Mark = Mark
+                //};
+
+
+
+                // Create a record 
+                string recordAndEndOfLine = studentRecord + "\n";
+
+
+                // Next is to access and write the string to a data file
+                // get the patt to your web app root
+                string contentPathName = _webHostEnvironment.ContentRootPath;  // This returns the top of the project (WebApp)
+                string filePathName = Path.Combine(contentPathName, @"Data\StudentMarks.txt");
+
+                // Append to the file
+                // If the file does not exist, it will be created
+                System.IO.File.AppendAllText(filePathName, recordAndEndOfLine);
+
+                OnPostClear();
+                PopulateAssessment();
+
+            }
 
             return Page();
         }
         public IActionResult OnPostClear()
         {
-            ModelState.Clear(); // Clears all keys and bindings
-            FirstName = null;
-            LastName = null;
-            Assessment = 0;
-            AssessmentVersion = 0;
+            ModelState.Clear();     // Clears all values entered on the web page (including the dynamic list (assessmentList)
+            studentRecord = null;   // clear record
+            //FirstName = null;
+            //LastName = null;
+            //Assessment = 0;
+            //AssessmentVersion = 0;
             Mark = 0;
 
             // since the server does not remember anything that was done on this web page
@@ -87,7 +133,7 @@ namespace WebApp.Pages.Samples
         }
         public IActionResult OnPostRedirectToReport()
         {
-
+            
             return RedirectToPage("StudentMarkReport");
         }
     }
