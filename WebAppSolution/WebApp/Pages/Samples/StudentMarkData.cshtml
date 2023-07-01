@@ -1,0 +1,14 @@
+﻿@page
+@model WebApp.Pages.Samples.StudentMarkDataModel
+@{
+    ViewData["Title"] = "Student Data"; //Creates a page title for web browser
+}
+
+<h1>Student Mark Data</h1>
+
+@if (ModelState.ErrorCount > 0)
+{
+    <div asp-validation-summary="All" class="error_area_color danger_color">
+        <p>Please review the validation summary of following concerns to correct your submission:</p>
+    </div>
+}
